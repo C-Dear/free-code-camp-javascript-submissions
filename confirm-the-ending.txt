@@ -1,0 +1,23 @@
+function confirmEnding(str, target) {
+  let tip = [];
+  
+  //chop off length of target from end of string
+  for (let i = 0; i < target.length; i++) {
+    tip.unshift(str[str.length - 1 - i])
+  }
+  tip = tip.join("");
+  
+  console.log(str);
+  console.log(tip);
+  console.log(target);
+
+  //string compare
+  console.log(tip.localeCompare(target));
+  if (tip.localeCompare(target) === 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+confirmEnding("Bastian", "n");

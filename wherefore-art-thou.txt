@@ -1,0 +1,51 @@
+function whatIsInAName(collection, source) {
+  const arr = [];
+  // Only change code below this line
+  
+  //I won't lie, this one took a while to figure out. I'm glad I went through it, though. I just have to keep at it and eventually I will get the answer.
+
+  //get key-value pairs from object in collection
+    //compare pairs in obj to pairs in source
+      //if all pairs in source are found in object, add to arr
+
+  //FOR objects IN collection
+    //let Counter = 0
+    //FOR key-value pairs IN object
+      //FOR key-value pairs IN source
+        //IF objPair === srcPair THEN
+          //print so far so good
+          //Counter++
+        //ENDIF
+      //ENDFOR
+    //ENDFOR
+    //IF Counter === source.keys.length THEN
+      //push Object to arr
+  //ENDFOR
+
+  collection.forEach(obj => {
+    console.log("checking next object...");
+    let matchCounter = 0;
+    for (const [objKey, objVal] of Object.entries(obj)) {
+      for (const [srcKey, srcVal] of Object.entries(source)) {
+        if (objKey === srcKey) {
+          if (objVal === srcVal) {
+            console.log("match");
+            matchCounter++;
+          }
+        }
+      }
+    }
+    if (matchCounter === Object.keys(source).length) {
+      console.log ("Winner found, inserting into arr...");
+      arr.push(obj);
+    }
+  });
+
+  console.log("final arr: ");
+  console.log(arr);
+  
+  // Only change code above this line
+  return arr;
+}
+
+whatIsInAName([{"a": 1, "b": 2, "c": 3, "d": 9999}], {"a": 1, "b": 9999, "c": 3});

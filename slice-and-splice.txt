@@ -1,0 +1,13 @@
+function frankenSplice(arr1, arr2, n) {
+  //we need to use slice() because "arr1 = arr2" does not copy the contents of arr 2 into arr1, but rather puts a reference of arr2 into arr1. Therefore, to proper copy the contents of an array, we must use slice().
+  let result = arr2.slice(); 
+
+  for (let i = 0; i < arr1.length; i++) {
+    result.splice(n, 0, arr1[arr1.length - 1 - i]);
+  }
+  console.log(result);
+  
+  return result;
+}
+
+frankenSplice([1, 2, 3], [4, 5, 6], 1);

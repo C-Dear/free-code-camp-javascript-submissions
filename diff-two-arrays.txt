@@ -1,0 +1,45 @@
+function diffArray_check(checkList, iVal, arr) {
+  for (let j = 0; j < arr.length; j++) {
+      if (checkList[iVal] === arr[j]) {
+        return 1;
+      } else {
+        //continue
+      }
+  }
+  
+  return 0;
+}
+
+function diffArray(arr1, arr2) {
+  const newArr = [];
+  let mirrorDiffSet = new Set();
+  
+  arr1.forEach(val => {
+    mirrorDiffSet.add(val);
+  });
+
+  arr2.forEach(val => {
+    mirrorDiffSet.add(val);
+  });
+
+  let mirrorDiffArr = Array.from(mirrorDiffSet);
+  mirrorDiffArr = mirrorDiffArr.sort();
+
+  for (let i = 0; i < mirrorDiffArr.length; i++) {
+    let trip = 0;
+
+    trip += diffArray_check(mirrorDiffArr, i, arr1);
+    trip += diffArray_check(mirrorDiffArr, i, arr2);
+
+    if (trip === 1) {
+      newArr.push(mirrorDiffArr[i]);
+    } else {
+      //do nothing and continue
+    }
+  }
+
+  console.log(newArr.toString());
+  return newArr;
+}
+
+diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5]);

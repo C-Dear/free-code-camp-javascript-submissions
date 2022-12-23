@@ -1,0 +1,23 @@
+function rot13(str) {
+  let chars = str.split("");
+
+  for (let i = 0; i < chars.length; i++) {
+    // if char is ASCII values 65 - 90 (capital A to capital Z)
+    if (chars[i].charCodeAt(0) >= 65 && chars[i].charCodeAt(0) <= 90) {
+      let charCode = chars[i].charCodeAt(0);
+      charCode += 13;
+
+      if (charCode > 90) {
+        charCode -= 90;
+        charCode += 64;
+      }
+
+      chars[i] = String.fromCharCode(charCode);
+    }
+  }
+
+  console.log(chars.join(""));
+  return chars.join("");
+}
+
+rot13("SERR PBQR PNZC");

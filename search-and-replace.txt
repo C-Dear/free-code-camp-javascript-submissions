@@ -1,0 +1,13 @@
+function myReplace(str, before, after) {
+  if (before.at(0) === before.at(0).toUpperCase()) {
+    //console.log("retaining upper case");
+    //console.log(str.replace(before, after.replace(after.at(0), after.at(0).toUpperCase())));
+    return str.replace(before, after.replace(after.at(0), after.at(0).toUpperCase()));
+  } else {
+    //console.log("retaining lower case");
+    //console.log(str.replace(before, after.replace(after.at(0), after.at(0).toLowerCase())));
+    return str.replace(before, after.replace(after.at(0), after.at(0).toLowerCase()));
+  }
+}
+
+myReplace("I think we should look up there", "up", "Down");

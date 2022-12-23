@@ -1,0 +1,86 @@
+/* 
+=======
+I have to admit that I am a bit ashamed of this one, but I was getting too frustrated from staring at it all day and getting error after error so I just went "too bad" and went with whatever worked. The parentheses part was such a pain, and is easily the most gaudy part of this function. I want to rewrite it at some point. 
+This does technically pass but in the future I wish to be a bit more efficient (and graceful) with my code.
+=======
+*/
+
+function telephoneCheck(str) {  
+  let nums;
+  
+  console.log("========Test Case: " + str + "========");
+
+  // First pass, basic regex check
+  if (str.match(/[^0-9\-\s\(\)+]/gi)) {
+    console.log("Error: Number is invalid! Contains more than numbers, parenthesis, whitespace, and hyphens!");
+    return false;
+  } else {
+    console.log("First pass successful...");
+  }
+
+  // Second pass, check how many numbers we have
+  nums = str.match(/[0-9]/g);
+  console.log(nums);
+  if (nums.length < 10 || nums.length > 11) {
+    console.log("Error: Number is invalid! Does not have between ten and eleven digits!");
+    return false;
+  } else {
+    console.log("Second pass successful...");
+  }
+  
+  // Optional pass, check country code
+  if (nums.length === 11) {
+    if (str.split("")[0] === '-') {
+      console.log("Error: Country code is likely a negative number!");
+      return false;
+    }
+    
+    if (nums[0] != 1) {
+      console.log("Error: Number is invalid! Country code is not 1!");
+      return false;
+    } else {
+      console.log("Optional country code pass successful...");
+    }
+
+  }
+
+  // Optional pass, handle parentheses
+  let dividers = str.match(/[\-\s\(\)]/g);
+  if (dividers) {
+    if (str.match(/[\(\)]/g)) {
+      console.log("We have parentheses. Are they around the area code?");
+      console.log(dividers);
+      if (nums.length === 10) {
+        console.log("We have no country code.");
+        if (dividers[0] === '(' && dividers[1] === ')' && dividers[dividers.length - 1] != '(' && dividers[dividers.length - 1] != ')') {
+          console.log(dividers.length);
+          console.log("The parentheses should be in the right place.");
+        } else {
+          console.log("Error: The parentheses are unlikely to be around the area code!");
+          return false;
+        }
+      } else if (nums.length === 11) {
+        console.log("We have a country code.");
+        if (dividers.filter(i => i === '(').length != dividers.filter(i => i === ')').length) {
+          console.log("Error: Incorrect parenthesis syntax!");
+          return false;
+        }
+        if (dividers[dividers.length - 1] != '(' && dividers[dividers.length - 1] != ')') {
+          console.log("The parentheses should be in the right place.");
+        } else {
+          console.log("Error: The parentheses are unlikely to be around the area code!");
+          return false;
+        }
+      }
+    } else {
+      if (dividers.length > 3) {
+        console.log("Error: too many dividers!");
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
+
+telephoneCheck("1 555)555-5555");

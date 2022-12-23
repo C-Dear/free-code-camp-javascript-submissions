@@ -1,0 +1,40 @@
+function fearNotLetter(str) {
+  let sequence = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+  let strSplit = str.split("");
+  let result = [];
+  let offset = 0;
+
+  //get offset
+  for (let i = 0; i < sequence.length; i++) {
+    if (sequence[i] === strSplit[0]) {
+      console.log("Setting offset to " + i + ".");
+      offset = i;
+      break;
+    } else {
+      //keep going
+    }
+  }
+
+  for (let i = 0; i < strSplit.length; i++) {
+    console.log("Loop " + (i + 1));
+    if (strSplit[i] === sequence[i + offset]) {
+      //keep going
+      console.log(sequence[i + offset])
+    } else {
+      console.log("Warning: Input string missing letter " + sequence[i + offset] + "!");
+      result.push(sequence[i + offset]);
+      offset++;
+    }
+  }
+
+  if (result.length === 0) {
+    console.log("No missing letters detected!");
+    return undefined;
+  } else {
+    console.log("missing letters are: " + result);
+    result = result.join("");
+    return result;
+  }
+}
+
+fearNotLetter("bcdf");

@@ -1,0 +1,30 @@
+function palindrome(str) {
+  const regex = /[a-z0-9]/gi;
+  let chars = str.match(regex);
+  /* If we don't even have any chars then just return true early since I guess inversing nothing is still nothing. */
+  if (chars === null) {
+    console.log("True!")
+    return true;
+  }
+
+  let chars_flipped = [...chars];
+  chars_flipped.reverse();
+
+  chars = chars.join("");
+  chars_flipped = chars_flipped.join("");
+  chars = chars.toLowerCase();
+  chars_flipped = chars_flipped.toLowerCase();
+
+  console.log(chars);
+  console.log(chars_flipped);
+
+  if (chars === chars_flipped) {
+    console.log("True!");
+    return true;
+  } else {
+    console.log("False!");
+    return false;
+  }
+}
+
+palindrome("1 eye for of 1 eye.");

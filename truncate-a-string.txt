@@ -1,0 +1,16 @@
+function truncateString(str, num) {
+  let chars = str.split('');
+  
+  if (str.length > num) {
+    for (let i = num; i < str.length; i++) {
+      chars.pop();
+    } 
+    chars.push('...');
+
+    return chars.join('');
+  }
+  console.log("Warning: string not long enough to truncate!");
+  return str;
+}
+
+truncateString("A-tisket a-tasket A green and yellow basket", 8);

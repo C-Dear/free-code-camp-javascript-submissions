@@ -1,0 +1,29 @@
+function pairElement(str) {
+  let dnaPair = [];
+  let dnaChars = str.split('');
+  
+  //detect if current pair is at or gc
+  for (let i = 0; i < dnaChars.length; i++) {
+    switch (dnaChars[i]) {
+    case 'A':
+      dnaPair.push(["A", "T"]);
+      break;
+    case 'T':
+      dnaPair.push(["T", "A"]);
+      break;
+    case 'C':
+      dnaPair.push(["C", "G"]);
+      break;
+    case 'G':
+      dnaPair.push(["G", "C"]);
+      break;
+    default:
+      // do nothing
+    }
+  }
+  
+  console.log(dnaPair);
+  return dnaPair;
+}
+
+pairElement("ATCGA");

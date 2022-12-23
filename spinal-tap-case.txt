@@ -1,0 +1,21 @@
+function spinalCase(str) {
+  //tokenize string word-by-word with regexp
+  //tokenize anything before a capital letter, or that is a hyphen, space, or underscore.
+  const tokens = str.split(/\W|_|(?=[A-Z])/);
+  var tokensLowered = [];
+  
+  //lowercase all tokens
+  tokens.forEach((token, index) => {
+    tokensLowered.push(tokens[index].toLowerCase());
+  });
+  
+  //put tokens together separated by hyphens
+  let result = tokensLowered.join('-');
+
+  console.log(tokens);
+  console.log(tokensLowered);
+  console.log(result);
+  return result;
+}
+
+spinalCase("AllThe-small Things");

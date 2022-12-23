@@ -1,0 +1,24 @@
+function orbitalPeriod(arr) {
+  const GM = 398600.4418;
+  const earthRadius = 6367.4447;
+  let result_arr = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    /* get sputnik semi-major axis by adding the average altitude and earth's radius together. */
+    let orbital_period;
+    let a = (arr[i].avgAlt + earthRadius) ** 3;
+    orbital_period = a / GM;
+    orbital_period = Math.sqrt(orbital_period);
+    orbital_period = (2 * Math.PI) * orbital_period;
+    /* we use round and not ceil becaus ceil can fuck up the second test. */
+    orbital_period = Math.round(orbital_period);
+    
+    let result = {name : arr[i].name, orbitalPeriod : orbital_period}
+    result_arr.push(result);
+  }
+
+  console.log(result_arr);
+  return result_arr;
+}
+
+orbitalPeriod([{name: "iss", avgAlt: 413.6}, {name: "hubble", avgAlt: 556.7}, {name: "moon", avgAlt: 378632.553}]);

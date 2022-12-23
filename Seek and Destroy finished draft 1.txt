@@ -1,0 +1,35 @@
+function destroyer(arr) {
+  let answer = [];
+  let options = arguments[0];
+  let targets = [];
+
+  for (let i = 1; i < arguments.length; i++) {
+    targets[i-1] = arguments[i];
+  }
+  console.log("targets: " + targets);
+
+  console.log("options: " + options);
+  for (let i = 0; i < options.length; i++) {
+    let bDoesItGoIn = true;
+    for (let j = 0; j < targets.length; j++) {
+      if (options[i] === targets[j]) {
+        bDoesItGoIn = false;
+        console.log("Doesn't go in!");
+        break;
+      } else {
+        console.log("So far so good... answer: " + answer + " i is: " + i + ", j is: " + j);
+      }
+    }
+
+    if (bDoesItGoIn === true) {
+      answer.push(options[i]);
+      console.log("Answer: " + answer);
+    }
+  }
+
+  console.log("Final answer:" + answer);
+
+  return answer;
+}
+
+destroyer(["possum", "trollo", 12, "safari", "hotdog", 92, 65, "grandma", "bugati", "trojan", "yacht"], "yacht", "possum", "trollo", "safari", "hotdog", "grandma", "bugati", "trojan");

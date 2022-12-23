@@ -1,0 +1,23 @@
+function sumFibs(num) {
+  let fibbs = [1, 1];
+  let sum = 0;
+
+  for (let i = 2; i < num; i++) {
+    if ((fibbs[i - 1] + fibbs[i - 2]) <= num) {
+      fibbs.push((fibbs[i - 1] + fibbs[i - 2]));
+    }
+  }
+  // console.log(fibbs)
+  
+  for (let i = 0; i < fibbs.length; i++) {
+    if (fibbs[i] % 2 != 0 && fibbs[i] % 2 <= num) {
+      sum += fibbs[i];
+      // console.log(sum);
+    }
+  }
+  
+  console.log("Final sum is: " + sum);
+  return sum;
+}
+
+sumFibs(75025);

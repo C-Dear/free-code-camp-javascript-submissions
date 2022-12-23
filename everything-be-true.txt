@@ -1,0 +1,16 @@
+function truthCheck(collection, pre) {
+  for (let i = 0; i < collection.length; i++) {
+    if (!collection[i][pre]) {
+      console.log(false);
+      return false;
+    } else {
+      // if it's true, then keep going until we find a false predicate
+    }
+  }
+  
+  // If we get through the whole loop with no falses, return true.
+  console.log(true);
+  return true;
+}
+
+truthCheck([{name: "Pikachu", number: 25, caught: 3}, {name: "Togepi", number: 175, caught: 1}], "number");

@@ -1,0 +1,143 @@
+// add total of lowest currency
+// can we meet the change?
+// if not, add the next total level of currency
+// can we meet the change?
+// repeat until we have run out of currencies
+// 
+
+function giveChange(target, coinType, coinAmount) {
+  // Figure out if our coin already exists in the array
+  for (let i = 0; i < target.length; i++) {
+    if (target[i][0] === coinType) {
+      if (coinAmount >= 1) {
+        target[i][1] += coinAmount;
+        return;
+      } else if (coinAmount < 1 && coinAmount > 0) {
+        target[i][1] = ((target[i][1] * 100) + (coinAmount * 100)) / 100;
+        return;
+      } else {
+        return;
+      }
+    } else {
+      //keep searching
+    }
+  }
+    //if coin does not exist in array
+    target.push([coinType, coinAmount]);  
+    return;
+}
+
+function checkCashRegister(price, cash, cid) {
+  console.log("===\n" + "price: " + price + ", cash: " + cash + ", register: " + cid + "\n===")
+  
+  let change = [];
+  let target = cash - price;
+  let isChangeExact = false;
+  
+  // check if we have the same amount of money in the register as the spare change
+  let registerTotal = 0;
+  for (let i = 0; i < cid.length; i++) {
+    registerTotal += cid[i][1];
+  }
+  console.log("total change to give: " + target);
+  console.log("total cash in register: " + registerTotal);
+  if (target === registerTotal) {
+    isChangeExact = true;
+  }
+
+  // check if we have enough in the register
+  if (target > registerTotal) {
+    console.log("Error: Not enough cash in register!");
+    return {status: "INSUFFICIENT_FUNDS", change:[]};
+  }
+  
+  while (target != 0) {
+    if (target - 100 >= 0 && cid[8][1] >= 100) {
+      target -= 100;
+      giveChange(change, "ONE HUNDRED", 100);
+      cid[8][1] -= 100;
+    } else if (target - 20 >= 0 && cid[7][1] >= 20) {
+      target -= 20;
+      giveChange(change, "TWENTY", 20);
+      cid[7][1] -= 20;
+    } else if (target - 10 >= 0 && cid[6][1] >= 10) {
+      target -= 10;
+      giveChange(change, "TEN", 10);
+      cid[6][1] -= 10;
+    } else if (target - 5 >= 0 && cid[5][1] >= 5) {
+      target -= 5;
+      giveChange(change, "FIVE", 5);
+      cid[5][1] -= 5;
+    } else if (target - 1 >= 0 && cid[4][1] >= 1) {
+      target -= 1;
+      giveChange(change, "ONE", 1);
+      cid[4][1] -= 1;
+    } else if (target - 0.25 >= 0 && cid[3][1] >= 0.25) {      
+      target = ((target * 100) - 25) / 100;
+      giveChange(change, "QUARTER", 0.25);
+      cid[3][1] = ((cid[3][1] * 100) - 25) / 100;
+    } else if (target - 0.10 >= 0 && cid[2][1] >= 0.10) {
+      target = ((target * 100) - 10) / 100;
+      giveChange(change, "DIME", 0.10);
+      cid[2][1] = ((cid[2][1] * 100) - 10) / 100;
+    } else if (target - 0.05 >= 0 && cid[1][1] >= 0.05) {
+      target = ((target * 100) - 5) / 100;
+      giveChange(change, "NICKEL", 0.05);
+      cid[1][1] = ((cid[1][1] * 100) - 5) / 100;
+    } else if (target - 0.01 >= 0 && cid[0][1] >= 0.01) {
+      target = ((target * 100) - 1) / 100;
+      giveChange(change, "PENNY", 0.01);
+      cid[0][1] = ((cid[0][1] * 100) - 1) / 100;
+    } else if (target > 0) {
+      console.log(target);
+      console.log("WARNING: Possibly don't have enough cash in register!");
+      break;
+    }
+  }
+  console.log(target);
+
+  if (isChangeExact) {
+    for (let i = 0; i < cid.length; i++) {
+      if (change[0][0] != cid[i][0]) {
+          change.push([cid[i][0], 0]);
+      }
+    }
+  }
+
+  // We do this to work around some floating point problems
+  if (target > 0.001) {
+      console.log("giving 0.01");
+      target = 0;
+      cid[0][1] = 0.00;
+      giveChange(change, "PENNY", 0.01);
+      // console.log(result);
+  }
+
+  // Even more workaround for even more floating point problems
+  for (let i = 0; i < change.length; i++) {
+    // console.log("Before: " + result[i][1]);
+    change[i][1] = parseFloat(change[i][1].toFixed(2));
+    // console.log("After: " + result[i][1]);
+  }
+
+  // do one last check to make sure the change will meet our needs
+  let test = 0;
+  for (let i = 0; i < change.length; i++) {
+    test += change[i][1];
+  }
+  test = parseFloat(test.toFixed(2));
+  if (test != cash - price) {
+    console.log("Error: Cannot give change! Sum is " + test + " but change is " + (cash - price) + "!");
+    return {status: "INSUFFICIENT_FUNDS", change:[]};
+  }
+  
+  if (isChangeExact) {
+    console.log({status: "CLOSED", change: change});
+    return {status: "CLOSED", change: change};
+  } else {
+    console.log({status: "OPEN", change: change});
+    return {status: "OPEN", change: change};
+  }
+}
+
+checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);

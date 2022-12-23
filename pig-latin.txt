@@ -1,0 +1,85 @@
+function checkForVowels(inChars) {
+  for (let i = 0; i < inChars.length; i++) {
+    if (inChars[i] === 'a' |
+        inChars[i] === 'e' |
+        inChars[i] === 'i' |
+        inChars[i] === 'o' |
+        inChars[i] === 'u' ) {
+      return true;
+    } else {
+      // keep searching
+    }
+  }
+  
+  return false;
+}
+
+function extractFirstConsonant(inChars) {
+  let consonant = [];
+  for (let i = 0; i < inChars.length; i++) {
+    if (inChars[i] === 'a'|
+        inChars[i] === 'e'|
+        inChars[i] === 'i'|
+        inChars[i] === 'o'|
+        inChars[i] === 'u') {
+      console.log("full consonant found");
+      for (let j = 0; j < i; j++) {
+        consonant.push(inChars[j]);
+      }
+      break;
+    } else {
+      //nothing
+    }
+  }
+  
+  console.log(consonant);
+  return consonant;
+}
+
+function translatePigLatin(str) {
+  let strChars = str.split('');
+  let result;
+  console.log(strChars);
+
+  //before we do all this work we're just going to check if there's even any vowels in the first place.
+  if (!checkForVowels(strChars)) {
+    console.log("Word has no consonants.");
+    strChars.push('ay');
+    result = strChars.join('');
+    console.log(result);
+    return result;
+  }
+
+  if (strChars[0] === 'a'|
+      strChars[0] === 'e'|
+      strChars[0] === 'i'|
+      strChars[0] === 'o'|
+      strChars[0] === 'u') {
+    console.log("Word starts with a vowel.");
+    strChars.push('way');
+    
+    result = strChars.join('');
+    console.log(result);
+    return result;
+  } else {  
+    console.log("Word starts with a consonant.");
+    let pigConsonant = extractFirstConsonant(strChars);
+
+    for (let i = 0; i < pigConsonant.length; i++) {
+      strChars.shift();
+    }
+    pigConsonant.push('ay');
+    
+    for (let i = 0; i < pigConsonant.length; i++) {
+      strChars.push(pigConsonant[i]);
+    }
+    
+    console.log(strChars);
+
+    result = strChars.join('');
+    console.log(result);
+    return result;
+  }
+}
+
+translatePigLatin("rhythm");
